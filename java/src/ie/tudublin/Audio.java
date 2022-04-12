@@ -1,7 +1,6 @@
 package ie.tudublin;
 
 import ddf.minim.AudioBuffer;
-import ddf.minim.AudioInput;
 import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
 import processing.core.PApplet;
@@ -13,14 +12,17 @@ import com.jogamp.common.util.TaskBase;
 
 public class Audio extends PApplet {
 
+    DancingTriangle v = new DancingTriangle(this);
     Minim minim;
     AudioPlayer ap;
-    AudioInput ai;
     AudioBuffer ab;
 
-    int mode = 0;
-
+    int mode = 0; // for menu usecase{}
     float[] lerpedBuffer;
+<<<<<<< HEAD
+=======
+    float sAmp = 0; // for smoothedAmplitude();
+>>>>>>> d85fc01757e03759af68cd1c7748bd229d0cd825
 
     Flame fl;
     Square sq[] = new Square[20];
@@ -69,9 +71,27 @@ public class Audio extends PApplet {
 
     }
 
+    public float smoothedAmplitude(){
+        float average = 0, sum = 0;
+        // Calculate sum and average of the samples
+        for (int i = 0; i < ab.size(); i++) {
+            sum += abs(ab.get(i));
+        }
+        average = sum / (float) ab.size();
+        //lerp the value
+        sAmp = lerp(sAmp, average, 0.1f);
+        return sAmp;
+    }
+
+
+
+
     public void draw() {
         background(0);
+        
+        v.render(smoothedAmplitude());
 
+        
         // Flame
 
         float halfH = height / 2;
