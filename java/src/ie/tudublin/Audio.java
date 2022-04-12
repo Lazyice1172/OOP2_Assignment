@@ -18,7 +18,7 @@ public class Audio extends PApplet {
     AudioBuffer ab;
 
     int mode = 0; // for menu usecase{}
-
+    float[] lerpedBuffer;
     float sAmp = 0; // for smoothedAmplitude();
 
     Square sq[] = new Square[20];
@@ -50,16 +50,6 @@ public class Audio extends PApplet {
         ap.play();
         ab = ap.mix;
         colorMode(HSB);
-<<<<<<< HEAD
-    }
-
-    public float smoothedAmplitude(){
-        float average = 0, sum = 0;
-        // Calculate sum and average of the samples
-=======
-
-        y = height / 2;
-        smoothedY = y;
 
         lerpedBuffer = new float[width];
 
@@ -77,29 +67,36 @@ public class Audio extends PApplet {
 
     }
 
-    public void draw() {
-        background(0);
-
-        // Flame
-
-        float halfH = height / 2;
-        float sum = 0;
-
->>>>>>> 05bfb7131eb7e1711866b75cfd33031fadcd3a57
+    public float smoothedAmplitude(){
+        float average = 0, sum = 0;
+        // Calculate sum and average of the samples
         for (int i = 0; i < ab.size(); i++) {
             sum += abs(ab.get(i));
         }
-<<<<<<< HEAD
         average = sum / (float) ab.size();
         //lerp the value
         sAmp = lerp(sAmp, average, 0.1f);
         return sAmp;
     }
 
+
+
+
     public void draw() {
         background(0);
+        
         v.render(smoothedAmplitude());
-=======
+
+        
+        // Flame
+
+        float halfH = height / 2;
+        float sum = 0;
+
+        for (int i = 0; i < ab.size(); i++) {
+            sum += abs(ab.get(i));
+            lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.05f);
+        }
 
         for (int i = 0; i < ab.size(); i++) {
             // float c = map(ab.get(i), -1, 1, 0, 255);
@@ -129,6 +126,5 @@ public class Audio extends PApplet {
 
         // SquareTrain
 
->>>>>>> 05bfb7131eb7e1711866b75cfd33031fadcd3a57
     }
 }
