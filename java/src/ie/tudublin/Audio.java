@@ -21,10 +21,8 @@ public class Audio extends PApplet {
     int mode = 0;
 
     float[] lerpedBuffer;
-    float y = 0;
-    float smoothedY = 0;
-    float smoothedAmplitude = 0;
 
+    Flame fl;
     Square sq[] = new Square[20];
     SquareTrain sqt[] = new SquareTrain[10];
 
@@ -55,13 +53,10 @@ public class Audio extends PApplet {
         ab = ap.mix;
         colorMode(HSB);
 
-        y = height / 2;
-        smoothedY = y;
-
         lerpedBuffer = new float[width];
 
         // Not Work
-        // fl = new Flame(height, width, minim, ap, ab, this);
+        fl = new Flame(height, width, minim, ap, ab, this);
 
         for (int i = 0; i < sq.length; i++) {
             sq[i] = new Square(width / 10 * i, height, 20, this);
@@ -88,12 +83,8 @@ public class Audio extends PApplet {
         }
 
         for (int i = 0; i < ab.size(); i++) {
-            // float c = map(ab.get(i), -1, 1, 0, 255);
-            float c = map(i, 0, ab.size(), 0, 255);
-            stroke(c, 255, 255);
             float f = lerpedBuffer[i] * halfH * 4.0f;
-            line(i, height, i, height - f);
-
+            fl.render(i, f);
         }
 
         // Flame
