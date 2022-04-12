@@ -12,7 +12,7 @@ public class Square {
 
     public Square(float x, float y, float w, Audio audio) {
         this.x = audio.random(audio.width);
-        this.y = audio.height;
+        this.y = audio.random(audio.height, audio.height + 500);
         this.w = w;
         halfW = w / 2.0f;
         this.audio = audio;
@@ -27,9 +27,10 @@ public class Square {
         audio.translate(x, y);
         audio.rotate(rotation);
 
+        float c = audio.map(x, 0, audio.width, 0, 255);
         float halfW = w / 2;
         audio.noFill();
-        audio.stroke(255);
+        audio.stroke(c, 255, 255);
         audio.rectMode(audio.CENTER);
         audio.rect(0, 0, w, w);
 
@@ -41,11 +42,7 @@ public class Square {
         y = y + fy;
         rotation = rotation - 0.01f;
 
-        if (y > audio.height) {
-            y = audio.height;
-            x = audio.random(audio.width);
-            fy = audio.random(-3, -1);
-        }
+        
         if (y < 0) {
             y = audio.height;
             x = audio.random(audio.width);

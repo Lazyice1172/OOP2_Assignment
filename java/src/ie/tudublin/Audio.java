@@ -6,6 +6,11 @@ import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
 import processing.core.PApplet;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.jogamp.common.util.TaskBase;
+
 public class Audio extends PApplet {
 
     Minim minim;
@@ -21,6 +26,7 @@ public class Audio extends PApplet {
     float smoothedAmplitude = 0;
 
     Square sq[] = new Square[20];
+    SquareTrain sqt[] = new SquareTrain[10];
 
     public void keyPressed() {
         if (key >= '0' && key <= '9') {
@@ -58,7 +64,12 @@ public class Audio extends PApplet {
         // fl = new Flame(height, width, minim, ap, ab, this);
 
         for (int i = 0; i < sq.length; i++) {
-            sq[i] = new Square(width / 10 * i, height, 25, this);
+            sq[i] = new Square(width / 10 * i, height, 20, this);
+        }
+        for (int i = 0; i < sqt.length; i++) {
+
+            sqt[i] = new SquareTrain(width / 10 * i, height, 30, this);
+
         }
 
     }
@@ -85,17 +96,24 @@ public class Audio extends PApplet {
 
         }
 
-        // Flame 
+        // Flame
 
-        // Square
+        // SquareTrain
 
         for (int j = 0; j < sq.length; j++) {
             sq[j].render();
-
             sq[j].update();
         }
+        for (int j = 0; j < sqt.length; j++) {
 
-        // Square
+            sqt[j].render();
+
+            if (frameCount % 30 == 0) {
+                sqt[j].update();
+            }
+        }
+
+        // SquareTrain
 
     }
 }
