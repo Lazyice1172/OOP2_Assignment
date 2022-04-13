@@ -12,21 +12,31 @@ import com.jogamp.common.util.TaskBase;
 
 public class Audio extends PApplet {
 
-    DancingTriangle v = new DancingTriangle(this);
     Minim minim;
     AudioPlayer ap;
     AudioBuffer ab;
 
     int mode = 0; // for menu usecase{}
     float[] lerpedBuffer;
-<<<<<<< HEAD
-=======
     float sAmp = 0; // for smoothedAmplitude();
->>>>>>> d85fc01757e03759af68cd1c7748bd229d0cd825
 
+    // Function
     Flame fl;
     Square sq[] = new Square[20];
     SquareTrain sqt[] = new SquareTrain[10];
+    DancingTriangle v = new DancingTriangle(this);
+    // Function
+
+    // Timer
+    Timer timer = new Timer();
+    TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+            System.out.println("Task is complete :)");
+            mode = mode + 1;
+        }
+    };
+    // Timer
 
     public void keyPressed() {
         if (key >= '0' && key <= '9') {
@@ -57,74 +67,94 @@ public class Audio extends PApplet {
 
         lerpedBuffer = new float[width];
 
-        // Not Work
-        fl = new Flame(height, width, minim, ap, ab, this);
+        // Timer every 5 second
+        timer.scheduleAtFixedRate(task, 5000, 5000);
+        ;
+        // Timer
+
+        // Create Flame
+        fl = new Flame(height, width, this);
+        // Create Flame
+
+        // Create Square
 
         for (int i = 0; i < sq.length; i++) {
             sq[i] = new Square(width / 10 * i, height, 20, this);
         }
+        // Create Square
+
+        // Create SquareTrain
         for (int i = 0; i < sqt.length; i++) {
 
             sqt[i] = new SquareTrain(width / 10 * i, height, 30, this);
 
         }
+        // Create SquareTrain
 
     }
 
-    public float smoothedAmplitude(){
+    public float smoothedAmplitude() {
         float average = 0, sum = 0;
         // Calculate sum and average of the samples
         for (int i = 0; i < ab.size(); i++) {
             sum += abs(ab.get(i));
         }
         average = sum / (float) ab.size();
-        //lerp the value
+        // lerp the value
         sAmp = lerp(sAmp, average, 0.1f);
         return sAmp;
     }
 
-
-
-
     public void draw() {
         background(0);
-        
-        v.render(smoothedAmplitude());
 
-        
-        // Flame
+        if (mode >= 0) {
+            // DancingTriangle
 
-        float halfH = height / 2;
-        float sum = 0;
+            v.render(smoothedAmplitude());
 
-        for (int i = 0; i < ab.size(); i++) {
-            sum += abs(ab.get(i));
-            lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.05f);
+            // DancingTriangle
+
         }
 
-        for (int i = 0; i < ab.size(); i++) {
-            float f = lerpedBuffer[i] * halfH * 4.0f;
-            fl.render(i, f);
-        }
+        if (mode >= 1) {
+            // Flame
 
-        // Flame
+            float halfH = height / 2;
+            float sum = 0;
 
-        // SquareTrain
-
-        for (int j = 0; j < sq.length; j++) {
-            sq[j].render();
-            sq[j].update();
-        }
-        for (int j = 0; j < sqt.length; j++) {
-
-            sqt[j].render();
-
-            if (frameCount % 30 == 0) {
-                sqt[j].update();
+            for (int i = 0; i < ab.size(); i++) {
+                sum += abs(ab.get(i));
+                lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.05f);
+                float f = lerpedBuffer[i] * halfH * 4.0f;
+                fl.render(i, f);
             }
+
+            // Flame
         }
 
-        // SquareTrain
+        if (mode >= 2) {
+            // Square
+            for (int j = 0; j < sq.length; j++) {
+                sq[j].render();
+                sq[j].update();
+            }
+            // Square
+        }
+
+        if (mode >= 3) {
+            // SquareTrain
+            for (int j = 0; j < sqt.length; j++) {
+
+                sqt[j].render();
+
+                if (frameCount % 30 == 0) {
+                    sqt[j].update();
+                }
+            }
+
+            // SquareTrain
+        }
 
     }
 }
