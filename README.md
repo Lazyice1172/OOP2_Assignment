@@ -32,4 +32,4 @@ This program is automated and will load 5 different patterns one by one in 30 se
 4. The rendering functions by drawing the 'SquareTrain' and using 'pushMatrix' and 'popMatrix' which allow us to rotate and translate the square to any position we desire.
 5. The 'SquareTrain' is updated by updating the location of x and y.
 
-## Circle
+## Circle :
