@@ -33,3 +33,9 @@ This program is automated and will load 5 different patterns one by one in 30 se
 5. The 'SquareTrain' is updated by updating the location of x and y.
 
 ## Circle :
+
+## Ending :
+1. Create  the Ending.java and pass the data. This file only run when the song audio finished.
+2. Check if the ab.get() is 0 which mean the audio finished and the Ending render and update.
+3. The rendering functions by drawing the text out on the screen
+4. The 'Ending' is updated by updating the location of y.
