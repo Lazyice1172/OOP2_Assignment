@@ -4,7 +4,7 @@ Team Members : Christina Vargka (C20737009), Anis Dizdarevic (C20345816), Ho Chu
 
 # How the Audio Works
 
-This audio file is automated and will add 5 different patterns in 30 second intervals. 
+This program is automated and will load 5 different patterns one by one in 30 second intervals. These animated patterns will then loop for the duration of the song.
 
 # How the Functions Operate
 
