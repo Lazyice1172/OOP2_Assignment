@@ -35,7 +35,7 @@ This program is automated and will load the audio and also load 5 different patt
 ## Circle :
 
 ## Ending :
-1. Create  the Ending.java and pass the data. This file only run when the song audio finished.
-2. Check if the ab.get() is 0 which mean the audio finished and the Ending render and update.
+1. The 'Ending.java' file function is created and the data gets passed. (This file only runs when the audio has finished playing)
+2. We check is the 'ab.get()' is equal to zero which means the audio has finished playing. The 'Ending' then renders and updates.
 3. The rendering functions by drawing the text out on the screen
 4. The 'Ending' is updated by updating the location of y.
