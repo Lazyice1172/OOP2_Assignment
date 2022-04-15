@@ -26,7 +26,7 @@ public class Ending {
         // Team Member
         audio.pushMatrix();
         audio.translate(x, y);
-        audio.text("Create by : ", 0, 0);
+        audio.text("Created by : ", 0, 0);
         audio.popMatrix();
 
         audio.pushMatrix();
