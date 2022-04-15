@@ -8,15 +8,13 @@ public class SquareTrain {
 
     Audio audio;
 
-    float rotation;
 
-    public SquareTrain(float x, float y, float w, Audio audio) {
+    public SquareTrain( float w, Audio audio) {
         this.x = audio.random(audio.width);
         this.y = audio.random(audio.height, audio.height + 500);
         this.w = w;
         halfW = w / 2.0f;
         this.audio = audio;
-        this.rotation = 0;
         fx = 0;
         fy = -w;
     }
@@ -25,7 +23,6 @@ public class SquareTrain {
         audio.pushMatrix();
         audio.translate(x, y);
 
-        float halfW = w / 2;
         float c = audio.map(x, 0, audio.width, 0, 255);
         audio.fill(c, 255, 255);
         audio.stroke(255);

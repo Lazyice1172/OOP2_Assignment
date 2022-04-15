@@ -21,10 +21,11 @@ public class Audio extends PApplet {
     float sAmp = 0; // for smoothedAmplitude();
 
     // Function
-    Flame fl;
-    Square sq[] = new Square[20];
-    SquareTrain sqt[] = new SquareTrain[10];
+    Flame fl = new Flame(this);
     DancingTriangle v = new DancingTriangle(this);
+    Circle circle = new Circle(this);
+    Square sq[] = new Square[50];
+    SquareTrain sqt[] = new SquareTrain[20];
     // Function
 
     // Timer
@@ -32,7 +33,6 @@ public class Audio extends PApplet {
     TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            System.out.println("Task is complete :)");
             mode = mode + 1;
         }
     };
@@ -52,47 +52,6 @@ public class Audio extends PApplet {
         }
     }
 
-    public void settings() {
-        size(960, 720, P3D);
-        // fullScreen(P3D, SPAN);
-    }
-
-    public void setup() {
-        minim = new Minim(this);
-
-        ap = minim.loadFile("Kubbi_Cascade .mp3", width);
-        ap.play();
-        ab = ap.mix;
-        colorMode(HSB);
-
-        lerpedBuffer = new float[width];
-
-        // Timer every 5 second
-        timer.scheduleAtFixedRate(task, 5000, 5000);
-        ;
-        // Timer
-
-        // Create Flame
-        fl = new Flame(height, width, this);
-        // Create Flame
-
-        // Create Square
-
-        for (int i = 0; i < sq.length; i++) {
-            sq[i] = new Square(width / 10 * i, height, 20, this);
-        }
-        // Create Square
-
-        // Create SquareTrain
-        for (int i = 0; i < sqt.length; i++) {
-
-            sqt[i] = new SquareTrain(width / 10 * i, height, 30, this);
-
-        }
-        // Create SquareTrain
-
-    }
-
     public float smoothedAmplitude() {
         float average = 0, sum = 0;
         // Calculate sum and average of the samples
@@ -105,32 +64,58 @@ public class Audio extends PApplet {
         return sAmp;
     }
 
-    public void draw() {
-        background(0);
+    public void settings() {
+        size(960, 720, P3D);
+        //fullScreen(P3D, SPAN);
+    }
 
-        if (mode >= 0) {
-            // DancingTriangle
+    public void setup() {
+        minim = new Minim(this);
 
-            v.render(smoothedAmplitude());
+        ap = minim.loadFile("Kubbi_Cascade .mp3", width);
+        ap.play();
+        ab = ap.mix;
+        colorMode(HSB);
 
-            // DancingTriangle
+        lerpedBuffer = new float[width];
 
+        // Timer every 10 second
+        timer.scheduleAtFixedRate(task, 5000, 10000);
+        ;
+
+        // Create Square
+        for (int i = 0; i < sq.length; i++) {
+            sq[i] = new Square(20, this);
         }
 
-        if (mode >= 1) {
-            // Flame
+        // Create SquareTrain
+        for (int i = 0; i < sqt.length; i++) {
+            float c = map(i, 1, sqt.length, width*0.03f, width*0.09f);
+            sqt[i] = new SquareTrain(c, this);
+        }
 
+    }
+
+    public void draw() {
+        background(0);
+        float smoothed = smoothedAmplitude();
+
+        // DancingTriangle
+        if (mode >= 0) {
+            v.render(smoothed);
+        }
+
+        // Flame
+        if (mode >= 1) {
             float halfH = height / 2;
-            float sum = 0;
 
             for (int i = 0; i < ab.size(); i++) {
-                sum += abs(ab.get(i));
                 lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.05f);
                 float f = lerpedBuffer[i] * halfH * 4.0f;
                 fl.render(i, f);
-            }
+                circle.render(i, f, smoothed, ab.size());
 
-            // Flame
+            }
         }
 
         if (mode >= 2) {
