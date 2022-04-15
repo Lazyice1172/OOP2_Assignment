@@ -8,8 +8,6 @@ import processing.core.PApplet;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.jogamp.common.util.TaskBase;
-
 public class Audio extends PApplet {
 
     Minim minim;
@@ -26,6 +24,7 @@ public class Audio extends PApplet {
     Circle circle = new Circle(this);
     Square sq[] = new Square[50];
     SquareTrain sqt[] = new SquareTrain[20];
+    Ending ed;
     // Function
 
     // Timer
@@ -33,25 +32,12 @@ public class Audio extends PApplet {
     TimerTask task = new TimerTask() {
         @Override
         public void run() {
+            // System.out.println("Task is complete :)");
             mode = mode + 1;
         }
     };
-    // Timer
 
-    public void keyPressed() {
-        if (key >= '0' && key <= '9') {
-            mode = key - '0';
-        }
-        if (keyCode == ' ') {
-            if (ap.isPlaying()) {
-                ap.pause();
-            } else {
-                ap.rewind();
-                ap.play();
-            }
-        }
-    }
-
+    //lerps the amplitude
     public float smoothedAmplitude() {
         float average = 0, sum = 0;
         // Calculate sum and average of the samples
@@ -65,14 +51,15 @@ public class Audio extends PApplet {
     }
 
     public void settings() {
-        size(960, 720, P3D);
-        //fullScreen(P3D, SPAN);
+        // size(960, 720, P3D);
+        fullScreen(P3D, SPAN);
     }
 
     public void setup() {
         minim = new Minim(this);
 
         ap = minim.loadFile("Kubbi_Cascade .mp3", width);
+
         ap.play();
         ab = ap.mix;
         colorMode(HSB);
@@ -80,8 +67,7 @@ public class Audio extends PApplet {
         lerpedBuffer = new float[width];
 
         // Timer every 10 second
-        timer.scheduleAtFixedRate(task, 5000, 10000);
-        ;
+        timer.scheduleAtFixedRate(task, 30000, 30000);
 
         // Create Square
         for (int i = 0; i < sq.length; i++) {
@@ -90,13 +76,15 @@ public class Audio extends PApplet {
 
         // Create SquareTrain
         for (int i = 0; i < sqt.length; i++) {
-            float c = map(i, 1, sqt.length, width*0.03f, width*0.09f);
+            float c = map(i, 1, sqt.length, width*0.01f, width*0.03f);
             sqt[i] = new SquareTrain(c, this);
         }
+        ed = new Ending(this);
 
     }
 
     public void draw() {
+
         background(0);
         float smoothed = smoothedAmplitude();
 
@@ -137,9 +125,15 @@ public class Audio extends PApplet {
                     sqt[j].update();
                 }
             }
-
             // SquareTrain
         }
 
+        // Ending
+        if (ab.get(0) == 0) {
+            ed.render();
+            ed.update();
+
+        }
+        // Ending
     }
 }
