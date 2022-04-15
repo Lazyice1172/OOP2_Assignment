@@ -2,7 +2,7 @@
 
 Team Members : Christina Vargka (C20737009), Anis Dizdarevic (C20345816), Ho Chung (C20348256)
 
-# How the Audio Works
+# How the Program Works
 
 This program is automated and will load 5 different patterns one by one in 30 second intervals. These animated patterns will then loop for the duration of the song.
 
