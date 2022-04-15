@@ -8,8 +8,8 @@ This audio file is automated and will add 5 different patterns in 30 second inte
 
 # How the Functions Operate
 
-* Dancing Triangle : 
-* Flame : 
-* Square : 
-* Square Train: 
-* 
+- Dancing Triangle : 
+- Flame : 
+- Square : 
+- Square Train: 
+- 
