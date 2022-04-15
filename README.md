@@ -19,11 +19,11 @@ This program is automated and will load 5 different patterns one by one in 30 se
 
 
 ## Square : 
-1. Create Numbers (50) of Square.java each function represent for each square
-2. Using for loop to passing the data to all the Square function
-3. Using for loop to render and update all the Square.
-4. Render -> Draw the Square and Used pushMatrix and popMatrix to allow us translate and rotate the square that we want.
-5. Square update which is used to update the x, y and duration of the Square
+1. A specific number (50) of the 'Square.java' function is created, each respresenting an individual square.
+2. Data is passed to all of the 'Square' functions by using a for loop.
+3. All of the 'Square' functions are rendered and updated by using a for loop.
+4. The rendering functions by drawing the 'Square' and using 'pushMatrix' and 'popMatrix' to allow us to rotate and translate the square in any way we desire.
+5. The 'Square' is updated by updating the location of x and y, and also the duration of the 'Square'.
 
 ## Square Train: 
 1. Create Numbers (20) of SquareTrain.java each function represent for each Square Train
