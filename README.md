@@ -4,7 +4,7 @@ Team Members : Christina Vargka (C20737009), Anis Dizdarevic (C20345816), Ho Chu
 
 # How the Program Works
 
-This program is automated and will load the audio and will also load 5 different patterns one by one in 30 second intervals. These patterns will then loop for the duration of the audio.
+This program is automated and will load the audio and also load 5 different patterns one by one in 30 second intervals. These patterns will then loop for the duration of the audio.
 
 # How the Functions Operate
 
