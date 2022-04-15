@@ -8,8 +8,6 @@ import processing.core.PApplet;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.jogamp.common.util.TaskBase;
-
 public class Audio extends PApplet {
 
     Minim minim;
@@ -22,8 +20,8 @@ public class Audio extends PApplet {
 
     // Function
     Flame fl;
-    Square sq[] = new Square[20];
-    SquareTrain sqt[] = new SquareTrain[10];
+    Square sq[] = new Square[50];
+    SquareTrain sqt[] = new SquareTrain[20];
     DancingTriangle v = new DancingTriangle(this);
     // Function
 
@@ -32,7 +30,7 @@ public class Audio extends PApplet {
     TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            System.out.println("Task is complete :)");
+            // System.out.println("Task is complete :)");
             mode = mode + 1;
         }
     };
@@ -52,6 +50,18 @@ public class Audio extends PApplet {
         }
     }
 
+    public float smoothedAmplitude() {
+        float average = 0, sum = 0;
+        // Calculate sum and average of the samples
+        for (int i = 0; i < ab.size(); i++) {
+            sum += abs(ab.get(i));
+        }
+        average = sum / (float) ab.size();
+        // lerp the value
+        sAmp = lerp(sAmp, average, 0.1f);
+        return sAmp;
+    }
+
     public void settings() {
         size(960, 720, P3D);
         // fullScreen(P3D, SPAN);
@@ -67,8 +77,8 @@ public class Audio extends PApplet {
 
         lerpedBuffer = new float[width];
 
-        // Timer every 5 second
-        timer.scheduleAtFixedRate(task, 5000, 5000);
+        // Timer every 10 second
+        timer.scheduleAtFixedRate(task, 5000, 10000);
         ;
         // Timer
 
@@ -79,30 +89,18 @@ public class Audio extends PApplet {
         // Create Square
 
         for (int i = 0; i < sq.length; i++) {
-            sq[i] = new Square(width / 10 * i, height, 20, this);
+            sq[i] = new Square(20, this);
         }
         // Create Square
 
         // Create SquareTrain
         for (int i = 0; i < sqt.length; i++) {
 
-            sqt[i] = new SquareTrain(width / 10 * i, height, 30, this);
+            sqt[i] = new SquareTrain(30, this);
 
         }
         // Create SquareTrain
 
-    }
-
-    public float smoothedAmplitude() {
-        float average = 0, sum = 0;
-        // Calculate sum and average of the samples
-        for (int i = 0; i < ab.size(); i++) {
-            sum += abs(ab.get(i));
-        }
-        average = sum / (float) ab.size();
-        // lerp the value
-        sAmp = lerp(sAmp, average, 0.1f);
-        return sAmp;
     }
 
     public void draw() {
@@ -152,7 +150,6 @@ public class Audio extends PApplet {
                     sqt[j].update();
                 }
             }
-
             // SquareTrain
         }
 
