@@ -14,7 +14,7 @@ public class Audio extends PApplet {
     AudioPlayer ap;
     AudioBuffer ab;
 
-    int mode = 0; // for menu usecase{}
+    int mode = 0;
     float[] lerpedBuffer;
     float sAmp = 0; // for smoothedAmplitude();
 
@@ -51,8 +51,8 @@ public class Audio extends PApplet {
     }
 
     public void settings() {
-        size(960, 720, P3D);
-        //fullScreen(P3D, SPAN);
+        //size(960, 720, P3D); //tester code
+        fullScreen(P3D, SPAN);
     }
 
     public void setup() {
@@ -101,7 +101,9 @@ public class Audio extends PApplet {
             for (int i = 0; i < ab.size(); i++) {
                 lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.05f);
                 float f = lerpedBuffer[i] * halfH * 2.0f;
+                
                 circle.render(i, f, smoothed, ab.size());
+                
                 if( mode >= 2){
                     fl.render(i, f);
                 }
