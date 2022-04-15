@@ -23,6 +23,7 @@ public class Audio extends PApplet {
     Square sq[] = new Square[50];
     SquareTrain sqt[] = new SquareTrain[20];
     DancingTriangle v = new DancingTriangle(this);
+    Ending ed;
     // Function
 
     // Timer
@@ -34,21 +35,8 @@ public class Audio extends PApplet {
             mode = mode + 1;
         }
     };
-    // Timer
 
-    public void keyPressed() {
-        if (key >= '0' && key <= '9') {
-            mode = key - '0';
-        }
-        if (keyCode == ' ') {
-            if (ap.isPlaying()) {
-                ap.pause();
-            } else {
-                ap.rewind();
-                ap.play();
-            }
-        }
-    }
+    // Timer
 
     public float smoothedAmplitude() {
         float average = 0, sum = 0;
@@ -71,6 +59,7 @@ public class Audio extends PApplet {
         minim = new Minim(this);
 
         ap = minim.loadFile("Kubbi_Cascade .mp3", width);
+
         ap.play();
         ab = ap.mix;
         colorMode(HSB);
@@ -78,7 +67,7 @@ public class Audio extends PApplet {
         lerpedBuffer = new float[width];
 
         // Timer every 10 second
-        timer.scheduleAtFixedRate(task, 5000, 10000);
+        timer.scheduleAtFixedRate(task, 30000, 30000);
         ;
         // Timer
 
@@ -100,6 +89,8 @@ public class Audio extends PApplet {
 
         }
         // Create SquareTrain
+
+        ed = new Ending(this);
 
     }
 
@@ -152,6 +143,11 @@ public class Audio extends PApplet {
             }
             // SquareTrain
         }
+        // System.out.println(ab.get(0));
+        if (ab.get(0) == 0) {
+            ed.render();
+            ed.update();
 
+        }
     }
 }
