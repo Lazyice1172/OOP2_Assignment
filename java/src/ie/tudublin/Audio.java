@@ -143,11 +143,13 @@ public class Audio extends PApplet {
             }
             // SquareTrain
         }
-        // System.out.println(ab.get(0));
+
+        // Ending
         if (ab.get(0) == 0) {
             ed.render();
             ed.update();
 
         }
+        // Ending
     }
 }
