@@ -36,9 +36,9 @@ public class Square {
         audio.popMatrix();
     }
 
-    public void update() {
+    public void update(float au) {
         x = x + fx;
-        y = y + fy;
+        y = y + fy - (au*20);
         rotation = rotation - 0.01f;
 
         

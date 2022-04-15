@@ -51,8 +51,8 @@ public class Audio extends PApplet {
     }
 
     public void settings() {
-        // size(960, 720, P3D);
-        fullScreen(P3D, SPAN);
+        size(960, 720, P3D);
+        //fullScreen(P3D, SPAN);
     }
 
     public void setup() {
@@ -79,8 +79,9 @@ public class Audio extends PApplet {
             float c = map(i, 1, sqt.length, width*0.01f, width*0.03f);
             sqt[i] = new SquareTrain(c, this);
         }
-        ed = new Ending(this);
-
+        
+        //Create Ending
+        ed = new Ending(this); 
     }
 
     public void draw() {
@@ -93,29 +94,32 @@ public class Audio extends PApplet {
             v.render(smoothed);
         }
 
-        // Flame
+        // Flame + circle
         if (mode >= 1) {
             float halfH = height / 2;
 
             for (int i = 0; i < ab.size(); i++) {
                 lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.05f);
-                float f = lerpedBuffer[i] * halfH * 4.0f;
-                fl.render(i, f);
+                float f = lerpedBuffer[i] * halfH * 2.0f;
                 circle.render(i, f, smoothed, ab.size());
+                if( mode >= 2){
+                    fl.render(i, f);
+                }
 
             }
-        }
-
-        if (mode >= 2) {
-            // Square
-            for (int j = 0; j < sq.length; j++) {
-                sq[j].render();
-                sq[j].update();
-            }
-            // Square
         }
 
         if (mode >= 3) {
+            // Square
+            for (int j = 0; j < sq.length; j++) {
+                sq[j].render();
+                sq[j].update(smoothed);
+                //System.out.println(smoothed);
+            }
+            // Square
+        }
+
+        if (mode >= 4) {
             // SquareTrain
             for (int j = 0; j < sqt.length; j++) {
 

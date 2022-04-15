@@ -20,7 +20,7 @@ public class DancingTriangle{
         pa.stroke(c, 255, 255);
 
         //Changing size
-        float radius = PApplet.map(au, 0, 0.1f, pa.height * 0.05f, pa.height * 0.1f);		
+        float radius = PApplet.map(au, 0, 0.1f, pa.height * 0.01f, pa.height * 0.02f);		
         int sides = 3; // triangle = 3 sides
         float px = cx; // previous x
         float py = cy - radius; //previous y

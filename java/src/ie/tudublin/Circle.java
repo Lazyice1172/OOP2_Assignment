@@ -22,7 +22,7 @@ public class Circle {
         pa.stroke(c, 255, 255);
         
         //Changing size
-        float radius = PApplet.map(au, 0, 0.05f, pa.height * 0.05f, pa.height * 0.1f);		
+        float radius = PApplet.map(au, 0, 0.05f, pa.height * 0.02f, pa.height * 0.03f);		
         
         float r = radius;
         float theta = PApplet.map(i, 0, sides, 0, PApplet.TWO_PI);
