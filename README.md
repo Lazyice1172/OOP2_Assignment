@@ -8,7 +8,7 @@ This program is automated and will load the audio and also load 5 different patt
 
 # How the Functions Operate
 
-## smoothedAmplitude
+## smoothedAmplitude :
 1. The values from the Audiobuffer are summed up.
 2. The average values of the audiobuffer are lerped then returned.
 
